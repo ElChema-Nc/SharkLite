@@ -1,23 +1,29 @@
-import { watchFile, unwatchFile } from 'fs'  
+import { watchFile, unwatchFile } from 'fs' 
 import chalk from 'chalk'
 import { fileURLToPath } from 'url'
 import fs from 'fs'
 import cheerio from 'cheerio'
 import fetch from 'node-fetch'
 import axios from 'axios'
-import moment from 'moment-timezone' 
-import { es } from './lib/idiomas/total-idiomas.js' 
+import moment from 'moment-timezone'
+import { es } from './lib/idiomas/total-idiomas.js'
 
+// ES ➜ Agregué primero el número del Bot como prioridad
+// ES ➜ Si desea recibir reportes debe de usar los tres parámetros (Número, nombre y true)
 global.owner = [
-  ['34623289459', '𝙀𝙡ㅤ𝘾𝙝𝙚𝙢𝙖ㅤ🔱', true],  
-  ['50578213790', '𝙊𝙬𝙣𝙚𝙧 (𝙊𝙨𝙤) 💻'],
-  ['50585826826', '𝙎𝙝𝙖𝙧𝙠𝙇𝙞𝙩𝙚ㅤ🦈']]
+['34623289459', '𝙀𝙡ㅤ𝘾𝙝𝙚𝙢𝙖ㅤ🔱', true],  
+['50578213790', '𝙊𝙬𝙣𝙚𝙧 (𝙊𝙨𝙤) 💻'],
+['50585826826', '𝙎𝙝𝙖𝙧𝙠𝙇𝙞𝙩𝙚ㅤ🦈']]
 
 global.mods = [] 
 global.prems = []
-
-//  es = Español   
+   
+//  es = Español 
 global.lenguajeGB = es  //<-- Predeterminado en idioma Español 
+
+// confirmación en el ajuste de idioma y owner en la consola
+global.languageLen = ""
+global.registerNumber = ""
 
 // ES ➜ Consigue Apikey en https://platform.openai.com/account/api-keys
 global.openai_key = 'sk-0'
@@ -85,7 +91,7 @@ global.desc = '' //agrega una descripción corta
 global.desc2 = '' //agrega una descripción larga (Solo se aplicará si su whasapp no tiene descripción)
 global.country = '' //agrega tú país ejemplo: 🇳🇮
 
-global.vs = '9.9.9'
+global.vs = '6.6.5-(beta)'
 global.vsJB = '4.0'
 
 global.sk = '𝙎𝙝𝙖𝙧𝙠𝙇𝙞𝙩𝙚ㅤ🦈'

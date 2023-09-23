@@ -22,7 +22,8 @@ resolve()
  * @param {import('@whiskeysockets/baileys').BaileysEventMap<unknown>['messages.upsert']} groupsUpdate 
  */
 export async function handler(chatUpdate) {
-this.msgqueque = this.msgqueque || []
+this.msgqueque = this.msgqueque || [];
+this.uptime = this.uptime || Date.now();
 if (!chatUpdate)
 return
 this.pushMessage(chatUpdate.messages).catch(console.error)
@@ -84,16 +85,16 @@ if (typeof chat !== 'object')
 global.db.data.chats[m.chat] = {}
                 
 if (chat) {
-if (!('isBanned' in chat)) chat.isBanned = false                    
-if (!('welcome' in chat)) chat.welcome = true                    
+if (!('isBanned' in chat)) chat.isBanned = false    
+if (!('welcome' in chat)) chat.welcome = true            
 if (!('detect' in chat)) chat.detect = true                    
-if (!('sWelcome' in chat)) chat.sWelcome = ''                    
+if (!('sWelcome' in chat)) chat.sWelcome = ''            
 if (!('sBye' in chat)) chat.sBye = ''                    
-if (!('sPromote' in chat)) chat.sPromote = ''                    
+if (!('sPromote' in chat)) chat.sPromote = ''              
 if (!('sDemote' in chat)) chat.sDemote = '' 
-if (!('delete' in chat)) chat.delete = true                        
+if (!('delete' in chat)) chat.delete = true                  
 if (!('antiver' in chat)) chat.viewonce = true         
-if (!('modoadmin' in chat)) chat.modoadmin = false           
+if (!('modoadmin' in chat)) chat.modoadmin = false     
 if (!('antiLink' in chat)) chat.antiLink = false
 if (!('antiLink2' in chat)) chat.antiLink2 = false    
 if (!('antiTiktok' in chat)) chat.antiTiktok = false
@@ -107,7 +108,6 @@ if (!('antiTraba' in chat)) chat.antiTraba = true
 if (!('antitoxic' in chat)) chat.antitoxic = true 
 if (!('reaction' in chat)) chat.reaction = true
 if (!isNumber(chat.expired)) chat.expired = 0
-
 } else
 global.db.data.chats[m.chat] = {
 isBanned: false,
@@ -137,7 +137,6 @@ expired: 0,
             
 let settings = global.db.data.settings[this.user.jid]
 if (typeof settings !== 'object') global.db.data.settings[this.user.jid] = {}
-	
 if (settings) {
 if (!('self' in settings)) settings.self = false
 if (!('autoread' in settings)) settings.autoread = false
@@ -145,8 +144,7 @@ if (!('restrict' in settings)) settings.restrict = false
 if (!('antiCall' in settings)) settings.antiCall = true
 if (!('antiPrivate' in settings)) settings.antiPrivate = false
 if (!('autoread2' in settings)) settings.autoread2 = false
-if (!('jadibotmd' in settings)) settings.jadibotmd = false  
-
+if (!('jadibotmd' in settings)) settings.jadibotmd = true  
 } else global.db.data.settings[this.user.jid] = {
 self: false,
 autoread: false,
@@ -154,9 +152,8 @@ autoread2: false,
 restrict: false,
 antiCall: true,
 antiPrivate: false,
-jadibotmd: false,
+jadibotmd: true,
 }
-	
 } catch (e) {
 console.error(e)
 }
@@ -338,7 +335,7 @@ if (xp > 2000)
 m.reply('Exp limit') // LÍMITE DE EXP
 else               
 if (!isPrems && plugin.money && global.db.data.users[m.sender].money < plugin.money * 1) {
-this.reply(m.chat, `🦈 *NO TIENE SHARKCOINS*`, m)
+this.reply(m.chat, `🐈 *NO TIENE GATACOINS*`, m)
 continue // LÍMITE DE EXP    
 }
 m.exp += xp
@@ -382,7 +379,7 @@ if (m.limit)
 m.reply(+m.limit + lenguajeGB.smsCont8())
 }
 if (m.money)
-m.reply(+m.money + ' *SHARKCOINS USADO(S)* 🦈')
+m.reply(+m.money + ' *GATACOINS USADO(S)* 🐱')
 break
 }}} catch (e) {
 console.error(e)
@@ -440,7 +437,7 @@ if (settingsREAD.autoread2 == 'true') await this.readMessages([m.key])
 	    
 if (!db.data.chats[m.chat].reaction && m.isGroup) return
 if (!m.fromMem && m.text.match(/(shark|lite|bot)/gi)) {
-let emot = pickRandom(["😳", "🥵", "🤯", "😱", "😨", "🤫", "🥴", "🤧", "🤑", "🤠", "🤖", "🤝", "💪", "👑", "😚", "🌝", "🌛", "🌜"])
+let emot = pickRandom(["😺", "😸", "😹", "😻", "😼", "😽", "🙀", "😿", "😾", "🤩", "😏", "😳", "🥵", "🤯", "😱", "😨", "🤫", "🥴", "🤧", "🤑", "🤠", "🤖", "🤝", "💪", "👑", "😚", "🐱", "🐈", "🐆", "🐅", "⚡️", "🌈", "☃️", "⛄️", "🌝", "🌛", "🌜", "🍓", "🍎", "🎈", "🪄", "❤️", "🧡", "💛", "💚", "💙", "💜", "🖤", "🤍", "💘", "💝", "💟", "🌝", "😎", "🔥", "🖕", "🐦"])
 this.sendMessage(m.chat, { react: { text: emot, key: m.key }})}
 function pickRandom(list) { return list[Math.floor(Math.random() * list.length)]}
 }}
@@ -473,7 +470,7 @@ pp = await this.profilePictureUrl(user, 'image')
 let apii = await this.getFile(pp)                                      
 const botTt2 = groupMetadata.participants.find(u => this.decodeJid(u.id) == this.user.jid) || {} 
 const isBotAdminNn = botTt2?.admin === "admin" || false
-text = (action === 'add' ? (chat.sWelcome || this.welcome || conn.welcome || 'Welcome, @user!').replace('@subject', await this.getName(id)).replace('@desc', groupMetadata.desc?.toString() || '𝗦𝘂𝗽𝗲𝗿 𝙎𝙝𝙖𝙧𝙠𝙇𝙞𝙩𝙚') :
+text = (action === 'add' ? (chat.sWelcome || this.welcome || conn.welcome || 'Welcome, @user!').replace('@subject', await this.getName(id)).replace('@desc', groupMetadata.desc?.toString() || '😻 𝗦𝘂𝗽𝗲𝗿 𝙂𝙖𝙩𝙖𝘽𝙤𝙩𝙇𝙞𝙩𝙚-𝙈𝘿 😻') :
 (chat.sBye || this.bye || conn.bye || 'Bye, @user!')).replace('@user', '@' + user.split('@')[0])
 			    
 if (chat.antifake && botTt.restrict && isBotAdminNn && action === 'add') {
@@ -517,8 +514,8 @@ let chats = global.db.data.chats[id], text = ''
 if (!chats?.detect) continue
 //if (groupUpdate.desc) text = (chats.sDesc || this.sDesc || conn.sDesc || '```Description has been changed to```\n@desc').replace('@desc', groupUpdate.desc)
 //if (groupUpdate.subject) text = (chats.sSubject || this.sSubject || conn.sSubject || '```Subject has been changed to```\n@subject').replace('@subject', groupUpdate.subject)
-if (groupUpdate.icon) text = (chats.sIcon || this.sIcon || conn.sIcon || '```Icon has been changed to```').replace('@icon', groupUpdate.icon)
-if (groupUpdate.revoke) text = (chats.sRevoke || this.sRevoke || conn.sRevoke || '```Group link has been changed to```\n@revoke').replace('@revoke', groupUpdate.revoke)
+if (groupUpdate.icon) text = (chats.sIcon || this.sIcon || conn.sIcon || '```El icono ha sido cambiado a```').replace('@icon', groupUpdate.icon)
+if (groupUpdate.revoke) text = (chats.sRevoke || this.sRevoke || conn.sRevoke || '```El enlace del grupo ha sido cambiado a```\n@revoke').replace('@revoke', groupUpdate.revoke)
 if (!text) continue
 await this.sendMessage(id, { text, mentions: this.parseMention(text) })
 }}
@@ -569,13 +566,17 @@ unreg: lenguajeGB['smsUnreg'](),
 restrict: lenguajeGB['smsRestrict'](),
 }[type]
 let tg = { quoted: m, userJid: conn.user.jid }
-let prep = generateWAMessageFromContent(m.chat, { extendedTextMessage: { text: msg, contextInfo: { externalAdReply: { title: lenguajeGB.smsAvisoAG().slice(0,-2), body: [wm, '👺 𝗦𝘂𝗽𝗲𝗿 ' + sk + ' 👑', '🌟 ja82783643@gmail.com'].getRandom(), thumbnail: sharkImg.getRandom(), sourceUrl: [md, yt, nna, ig].getRandom() }}}}, tg)
+let prep = generateWAMessageFromContent(m.chat, { extendedTextMessage: { text: msg, contextInfo: { externalAdReply: { title: lenguajeGB.smsAvisoAG().slice(0,-2), body: [wm, '😻 𝗦𝘂𝗽𝗲𝗿 ' + gt + ' 😻', '🌟 centergatabot.gmail.com'].getRandom(), thumbnail: sharkImg.getRandom(), sourceUrl: [md, yt, nna, nn, nnn, ig, paypal, fb].getRandom() }}}}, tg)
 if (msg) return conn.relayMessage(m.chat, prep.message, { messageId: prep.key.id })
 }
 
-let file = global.__filename(import.meta.url, true)
+const file = global.__filename(import.meta.url, true);
 watchFile(file, async () => {
-unwatchFile(file)
+unwatchFile(file);
 console.log(chalk.bold.greenBright(lenguajeGB['smsHandler']()))
-if (global.reloadHandler) console.log(await global.reloadHandler())
-})
+if (global.reloadHandler) console.log(await global.reloadHandler());
+if (global.conns && global.conns.length > 0 ) {
+const users = [...new Set([...global.conns.filter((conn) => conn.user && conn.ws.socket && conn.ws.socket.readyState !== ws.CLOSED).map((conn) => conn)])];
+for (const userr of users) {
+userr.subreloadHandler(false)
+}}});
