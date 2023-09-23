@@ -58,7 +58,7 @@ if (!isNumber(user.age)) user.age = 0
 }
 		                    		    
 if (!isNumber(user.afk)) user.afk = -1
-if (!('role' in user)) user.role = '*NOVATO(A)* 🪤'
+if (!('role' in user)) user.role = '*NOVATO(A)* '
 if (!user.premium) user.premium = false
 if (!user.premium) user.premiumTime = 0
                                                    		                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                    
@@ -77,7 +77,7 @@ premiumTime: 0,
 name: m.name,
 regTime: -1,
 registered: false,
-role: '*NOVATO(A)* 🪤',
+role: '*NOVATO(A)* ',
 }
 		
 let chat = global.db.data.chats[m.chat]
@@ -335,7 +335,7 @@ if (xp > 2000)
 m.reply('Exp limit') // LÍMITE DE EXP
 else               
 if (!isPrems && plugin.money && global.db.data.users[m.sender].money < plugin.money * 1) {
-this.reply(m.chat, `🐈 *NO TIENE GATACOINS*`, m)
+this.reply(m.chat, ` *NO TIENE SHARKCOINS*`, m)
 continue // LÍMITE DE EXP    
 }
 m.exp += xp
@@ -379,7 +379,7 @@ if (m.limit)
 m.reply(+m.limit + lenguajeGB.smsCont8())
 }
 if (m.money)
-m.reply(+m.money + ' *GATACOINS USADO(S)* 🐱')
+m.reply(+m.money + ' *SHARKCOINS USADO(S)* ')
 break
 }}} catch (e) {
 console.error(e)
@@ -437,7 +437,7 @@ if (settingsREAD.autoread2 == 'true') await this.readMessages([m.key])
 	    
 if (!db.data.chats[m.chat].reaction && m.isGroup) return
 if (!m.fromMem && m.text.match(/(shark|lite|bot)/gi)) {
-let emot = pickRandom(["😺", "😸", "😹", "😻", "😼", "😽", "🙀", "😿", "😾", "🤩", "😏", "😳", "🥵", "🤯", "😱", "😨", "🤫", "🥴", "🤧", "🤑", "🤠", "🤖", "🤝", "💪", "👑", "😚", "🐱", "🐈", "🐆", "🐅", "⚡️", "🌈", "☃️", "⛄️", "🌝", "🌛", "🌜", "🍓", "🍎", "🎈", "🪄", "❤️", "🧡", "💛", "💚", "💙", "💜", "🖤", "🤍", "💘", "💝", "💟", "🌝", "😎", "🔥", "🖕", "🐦"])
+let emot = pickRandom(["", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", ""])
 this.sendMessage(m.chat, { react: { text: emot, key: m.key }})}
 function pickRandom(list) { return list[Math.floor(Math.random() * list.length)]}
 }}
@@ -470,7 +470,7 @@ pp = await this.profilePictureUrl(user, 'image')
 let apii = await this.getFile(pp)                                      
 const botTt2 = groupMetadata.participants.find(u => this.decodeJid(u.id) == this.user.jid) || {} 
 const isBotAdminNn = botTt2?.admin === "admin" || false
-text = (action === 'add' ? (chat.sWelcome || this.welcome || conn.welcome || 'Welcome, @user!').replace('@subject', await this.getName(id)).replace('@desc', groupMetadata.desc?.toString() || '😻 𝗦𝘂𝗽𝗲𝗿 𝙂𝙖𝙩𝙖𝘽𝙤𝙩𝙇𝙞𝙩𝙚-𝙈𝘿 😻') :
+text = (action === 'add' ? (chat.sWelcome || this.welcome || conn.welcome || 'Bienvenido, @user!').replace('@subject', await this.getName(id)).replace('@desc', groupMetadata.desc?.toString() || ' ') :
 (chat.sBye || this.bye || conn.bye || 'Bye, @user!')).replace('@user', '@' + user.split('@')[0])
 			    
 if (chat.antifake && botTt.restrict && isBotAdminNn && action === 'add') {
@@ -488,12 +488,12 @@ break
 case 'promote':
 case 'daradmin':
 case 'darpoder':
-text = (chat.sPromote || this.spromote || conn.spromote || '@user ```is now Admin```')
+text = (chat.sPromote || this.spromote || conn.spromote || '@user ```ahora es administrador```')
 case 'demote':
 case 'quitarpoder':
 case 'quitaradmin':
 if (!text)
-text = (chat.sDemote || this.sdemote || conn.sdemote || '@user ```is no longer Admin```')
+text = (chat.sDemote || this.sdemote || conn.sdemote || '@user ```ya no es administrador```')
 text = text.replace('@user', '@' + participants[0].split('@')[0])
 if (chat.detect)
 //this.sendMessage(id, { text, mentions: this.parseMention(text) })
@@ -512,8 +512,8 @@ const id = groupUpdate.id
 if (!id) continue
 let chats = global.db.data.chats[id], text = ''
 if (!chats?.detect) continue
-//if (groupUpdate.desc) text = (chats.sDesc || this.sDesc || conn.sDesc || '```Description has been changed to```\n@desc').replace('@desc', groupUpdate.desc)
-//if (groupUpdate.subject) text = (chats.sSubject || this.sSubject || conn.sSubject || '```Subject has been changed to```\n@subject').replace('@subject', groupUpdate.subject)
+//if (groupUpdate.desc) text = (chats.sDesc || this.sDesc || conn.sDesc || '```La descripci�n ha sido cambiada a```\n@desc').replace('@desc', groupUpdate.desc)
+//if (groupUpdate.subject) text = (chats.sSubject || this.sSubject || conn.sSubject || '```El tema ha sido cambiado a```\n@subject').replace('@subject', groupUpdate.subject)
 if (groupUpdate.icon) text = (chats.sIcon || this.sIcon || conn.sIcon || '```El icono ha sido cambiado a```').replace('@icon', groupUpdate.icon)
 if (groupUpdate.revoke) text = (chats.sRevoke || this.sRevoke || conn.sRevoke || '```El enlace del grupo ha sido cambiado a```\n@revoke').replace('@revoke', groupUpdate.revoke)
 if (!text) continue
@@ -566,7 +566,7 @@ unreg: lenguajeGB['smsUnreg'](),
 restrict: lenguajeGB['smsRestrict'](),
 }[type]
 let tg = { quoted: m, userJid: conn.user.jid }
-let prep = generateWAMessageFromContent(m.chat, { extendedTextMessage: { text: msg, contextInfo: { externalAdReply: { title: lenguajeGB.smsAvisoAG().slice(0,-2), body: [wm, '😻 𝗦𝘂𝗽𝗲𝗿 ' + gt + ' 😻', '🌟 centergatabot.gmail.com'].getRandom(), thumbnail: sharkImg.getRandom(), sourceUrl: [md, yt, nna, nn, nnn, ig, paypal, fb].getRandom() }}}}, tg)
+let prep = generateWAMessageFromContent(m.chat, { extendedTextMessage: { text: msg, contextInfo: { externalAdReply: { title: lenguajeGB.smsAvisoAG().slice(0,-2), body: [wm, '  ' + sk + ' ', ' ja82783643@gmail.com'].getRandom(), thumbnail: sharkImg.getRandom(), sourceUrl: [md, yt, nna, nn, nnn, ig, paypal, fb].getRandom() }}}}, tg)
 if (msg) return conn.relayMessage(m.chat, prep.message, { messageId: prep.key.id })
 }
 
