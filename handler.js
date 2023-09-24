@@ -335,7 +335,7 @@ if (xp > 2000)
 m.reply('Exp limit') // LIMITE DE EXP
 else               
 if (!isPrems && plugin.money && global.db.data.users[m.sender].money < plugin.money * 1) {
-this.reply(m.chat, ` *NO TIENE SHARKCOINS*`, m)
+this.reply(m.chat, `🦈 *NO TIENE SHARKCOINS*`, m)
 continue // LIMITE DE EXP    
 }
 m.exp += xp
