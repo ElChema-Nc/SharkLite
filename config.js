@@ -86,8 +86,8 @@ global.official = [
 ['50578213790', '𝙊𝙬𝙣𝙚𝙧 (𝙊𝙨𝙤) 💻', 1],
 ['50585826826', '𝙎𝙝𝙖𝙧𝙠𝙇𝙞𝙩𝙚ㅤ🦈', 1]]
 
-global.mail = 'ja82783643@gmail.com' //agrega tú correo
-global.desc = 'Hola' //agrega una descripción corta
+global.mail = '' //agrega tú correo
+global.desc = '' //agrega una descripción corta
 global.desc2 = '' //agrega una descripción larga (Solo se aplicará si su whasapp no tiene descripción)
 global.country = '🇳🇮' //agrega tú país ejemplo: 🇳🇮
 
