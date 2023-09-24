@@ -9,6 +9,7 @@ import { performance } from 'perf_hooks'
 import fetch from 'node-fetch'
 import osu from 'node-os-utils'
 import { sizeFormatter } from 'human-readable'
+import ws from 'ws';
 
 let handler = async (m, { conn, command, usedPrefix, args, text, __dirname, isOwner, isRowner, DevMode }) => {
 let name, _uptime, _muptime, uptime, totalreg, fkontak, rtotalreg, frep, _package, taguser, groups
@@ -18,14 +19,15 @@ fkontak = { "key": { "participants":"0@s.whatsapp.net", "remoteJid": "status@bro
 
 const isCommand1 = /^(estado|status|estate|state|stado|stats|botstat(us)?)$/i.test(command)  
 const isCommand2 = /^(cuenta(s)?oficiales?|sharkig|(cuentas|account)s?s?k|(ig)?shark|(cuentasshark))$/i.test(command)  
-const isCommand3 = /^(shark(bot)?groups?|grupos(ofc|desharkbot|sk)|gruposk|groupssk|sharkgroups?|grupos|group(ofc|sofc))$/i.test(command)  
-const isCommand4 = /^(instalar(shark)?bot|proceso(del)?bot|bot(install|proceso)|installbot)$/i.test(command) 
-const isCommand5 = /^(owner|creator|propietario|dueño|dueña|propietaria|dueño|creadora|creador)$/i.test(command) 
-const isCommand6 = /^(group(s|list|o(lista)?)|list(a)?(de)?grupo(s)?|grupolista)$/i.test(command) 
-const isCommand7 = /^(info(shark|bot)|informaci(ón|on)(shark|bot))$/i.test(command) 
-const isCommand8 = /^(contactos?|contacts?)$/i.test(command) 
-const isCommand9 = /^(ping|speed|velocidad|rapidez|velocity)$/i.test(command) 
-const isCommand10 = /^(report|request|reporte|bugs|bug|reportowner|reportes|reportar)$/i.test(command) 
+const isCommand3 = /^(shark(bot)?groups?|grupos(ofc|desharkbot|sk)|gruposk|groupssk|sharkgroups?|grupos|group(ofc|sofc))$/i.test(command) 
+const isCommand4 = /^(c(ó|o)digo|sc|git|script)$/i.test(command) 
+const isCommand5 = /^(instalar(shark)?bot|proceso(del)?bot|bot(install|proceso)|installbot)$/i.test(command) 
+const isCommand6 = /^(owner|creator|propietario|dueño|dueña|propietaria|dueño|creadora|creador)$/i.test(command) 
+const isCommand7 = /^(group(s|list|o(lista)?)|list(a)?(de)?grupo(s)?|grupolista)$/i.test(command) 
+const isCommand8 = /^(info(shark|bot)|informaci(ón|on)(shark|bot))$/i.test(command) 
+const isCommand9 = /^(contactos?|contacts?)$/i.test(command) 
+const isCommand10 = /^(ping|speed|velocidad|rapidez|velocity)$/i.test(command) 
+const isCommand11 = /^(report|request|reporte|bugs|bug|reportowner|reportes|reportar)$/i.test(command) 
 
 async function reportError(e) {
 await m.reply(lenguajeGB['smsMalError3']() + '\n*' + lenguajeGB.smsMensError1() + '*\n*' + usedPrefix + `${lenguajeGB.lenguaje() == 'es' ? 'reporte' : 'report'}` + '* ' + `${lenguajeGB.smsMensError2()} ` + usedPrefix + command)
@@ -90,6 +92,15 @@ reportError(e)
 break
     
 case isCommand4:
+try{ 
+_package = JSON.parse(await promises.readFile(join(__dirname, '../package.json')).catch(_ => ({}))) || {}
+await conn.sendFile(m.chat, sharkImg.getRandom(), 'shark.jpg', `*_${_package.homepage}_*\n\n` + lenguajeGB.smsPrivadoDonar(), fkontak)    
+} catch (e) {
+reportError(e)
+}    
+break
+    
+case isCommand5:
 let codigo = `termux-setup-storage
 apt update
 apt upgrade
@@ -112,7 +123,7 @@ node .`
 try{	
 let termux = `*◎ T E R M U X*\n\n${codigo}`
 let replit = `*◎ R E P L I T*\n\nhttps://replit.com/github/ElChema-Nc/SharkLite`
-let heroku = `*◎ H E R O K U*\n\nhttps://heroku.com/deploy?template=https://github.com/ElChema-Nc/SharkLite-Heroku`
+let heroku = `*◎ H E R O K U*\n\nhttps://heroku.com/deploy?template=https://github.com/ElChema-Nc/SharkLite`
 let windows = `*◎ W I N D O W S / V P S / R D P*\n
 ⎔ _Git_
 https://git-scm.com/downloads
@@ -130,7 +141,7 @@ reportError(e)
 }    
 break
     
-case isCommand5:
+case isCommand6:
 try{   
 taguser = conn.getName(m.sender)
 _package = JSON.parse(await promises.readFile(join(__dirname, '../package.json')).catch(_ => ({}))) || {}
@@ -143,7 +154,7 @@ reportError(e)
 }    
 break
     
-case isCommand6:
+case isCommand7:
 try{
 let txt
 groups = Object.values(await conn.groupFetchAllParticipating())
@@ -162,13 +173,13 @@ reportError(e)
 }     
 break
     
-case isCommand7:
+case isCommand8:
 try{
 _uptime = process.uptime() * 1000
 uptime = clockString(_uptime) 
 totalreg = Object.keys(global.db.data.users).length
 rtotalreg = Object.values(global.db.data.users).filter(user => user.registered == true).length
-let totaljadibot = [...new Set([...global.conns.filter(conn => conn.user && conn.state !== 'close').map(conn => conn.user)])] 
+let totaljadibot = [...new Set([...global.conns.filter((conn) => conn.user && conn.ws.socket && conn.ws.socket.readyState !== ws.CLOSED).map((conn) => conn)])];
 const chats = Object.entries(conn.chats).filter(([id, data]) => id && data.isChats)
 //const groupsIn = chats.filter(([id]) => id.endsWith('@g.us'))
 groups = chats.filter(([id]) => id.endsWith('@g.us'))
@@ -179,17 +190,17 @@ let speed = neww - old
 
 let info = `
 *${lenguajeGB.smsCreInfo().slice(0, -1)}*
-🌺꙰᠁❥ *◜${lenguajeGB.smsBT1()}◞* ⇢ ${author}
-🌼꙰᠁❥ *◜${lenguajeGB.smsBT2()}◞* ⇢ ${vs}
-🌺꙰᠁❥ *◜${lenguajeGB.smsBT3()}◞* ⇢ ( ${usedPrefix} )
-🌻꙰᠁❥ *◜${lenguajeGB.smsBT4()}◞* ⇢ ${chats.length - groups.length}
-🌼꙰᠁❥ *◜${lenguajeGB.smsBT5()}◞* ⇢ ${groups.length}
-🌺꙰᠁❥ *◜${lenguajeGB.smsBT6()}◞* ⇢ ${chats.length}
-🌻꙰᠁❥ *◜${lenguajeGB.smsBT7()}◞* ⇢ ${uptime}
-🌼꙰᠁❥ *◜${lenguajeGB.smsBT8()}◞* ⇢ ${totalreg}
-🌺꙰᠁❥ *◜${lenguajeGB.smsEstado4().toUpperCase()}◞* ⇢ ${rtotalreg}/${totalreg}
-🌻꙰᠁❥ *◜${lenguajeGB.smsVl1()}◞* ⇢ ${(speed * 1000).toFixed(0) / 1000}
-🌼꙰᠁❥ *◜${lenguajeGB.smsBT9()}◞* ⇢ ${totaljadibot.length}`.trim()
+👺꙰᠁❥ *◜${lenguajeGB.smsBT1()}◞* ⇢ ${author}
+🚼꙰᠁❥ *◜${lenguajeGB.smsBT2()}◞* ⇢ ${vs}
+😃꙰᠁❥ *◜${lenguajeGB.smsBT3()}◞* ⇢ ( ${usedPrefix} )
+🫡꙰᠁❥ *◜${lenguajeGB.smsBT4()}◞* ⇢ ${chats.length - groups.length}
+🤧꙰᠁❥ *◜${lenguajeGB.smsBT5()}◞* ⇢ ${groups.length}
+🤖꙰᠁❥ *◜${lenguajeGB.smsBT6()}◞* ⇢ ${chats.length}
+🔝꙰᠁❥ *◜${lenguajeGB.smsBT7()}◞* ⇢ ${uptime}
+🤯꙰᠁❥ *◜${lenguajeGB.smsBT8()}◞* ⇢ ${totalreg}
+☠️꙰᠁❥ *◜${lenguajeGB.smsEstado4().toUpperCase()}◞* ⇢ ${rtotalreg}/${totalreg}
+😨꙰᠁❥ *◜${lenguajeGB.smsVl1()}◞* ⇢ ${(speed * 1000).toFixed(0) / 1000}
+😐꙰᠁❥ *◜${lenguajeGB.smsBT9()}◞* ⇢ ${totaljadibot.length}`.trim()
 
 await conn.sendFile(m.chat, sharkImg.getRandom(), 'shark.jpg', info, fkontak) 
 } catch (e) {
@@ -197,7 +208,7 @@ reportError(e)
 }     
 break
 
-case isCommand8:
+case isCommand9:
 try{
 let contact, number, ofc, nombre, description, correo, lugar, enlace, biog
 let biografiaBot = await conn.fetchStatus(conn.user.jid.split('@')[0] + '@s.whatsapp.net').catch(_ => 'undefined')
@@ -210,13 +221,13 @@ number = String(contact[0])
 ofc = await conn.getName(number + '@s.whatsapp.net') //String(contact[1])
 let biografia = await conn.fetchStatus(number +'@s.whatsapp.net').catch(_ => 'undefined')
 let bio = biografia.status?.toString() || `${desc2 == '' ? lenguajeGB.smsContacto2() : desc2}`
-nombre = official[0][0] == String(contact[0]) ? official[0][1] : lenguajeGB.smsContacto3() 
-description = official[0][0] == String(contact[0]) ? 'Solo temas del SharkLite' : official[1][0] == String(contact[0]) ? lenguajeGB.smsContacto4() : desc === '' ? lenguajeGB.smsContacto5() : desc
+nombre = official[0][0] == String(contact[0]) : lenguajeGB.smsContacto3() 
+description = official[0][0] == String(contact[0]) ? 'Solo temas del SharkLite' : official[1][0] == String(contact[0]) ? lenguajeGB.smsContacto4() : official[2][0] == String(contact[0]) ? lenguajeGB.smsContacto4() : official[3][0] == String(contact[0]) ? lenguajeGB.smsContacto4() : desc === '' ? lenguajeGB.smsContacto5() : desc
 correo = official[0][0] == String(contact[0]) ? 'ja82783643@gmail.com' : mail === '' ? lenguajeGB.smsContacto6() : mail
 lugar = official[0][0] == String(contact[0]) ? '🇳🇮 Nicaragua' : country === '' ? lenguajeGB.smsContacto7() : country
 enlace = official[0][0] == String(contact[0]) ? 'https://github.com/ElChema-Nc' : md    
-lista.push([number, ofc, nombre, description, official[3][0] == String(contact[0]) ? null : correo, lugar, enlace, bio, official[1][0] == String(contact[0]) ? 'https://youtube.com/@thechema4896' : null]) } 
-lista.push([conn.user.jid.split('@')[0], await conn.getName(conn.user.jid), packname, lenguajeGB.smsContacto8(), mail === '' ? 'ja82783643@gmail.com' : mail, lenguajeGB.smsContacto7(), md, bioBot, yt, ig, nna])
+lista.push([number, ofc, nombre, description, official[0][0] == String(contact[0]) ? null : correo, lugar, enlace, bio, official[0][0] == String(contact[0]) ? 'https://youtube.com/@thechema4896' : null]) }  
+lista.push([conn.user.jid.split('@')[0], await conn.getName(conn.user.jid), packname, lenguajeGB.smsContacto8(), mail === '' ? 'centergatabot@gmail.com' : mail, lenguajeGB.smsContacto7(), md, bioBot, yt, ig, nna])
 await conn.sendContactArray(m.chat, lista, null, { quoted: fkontak })
 /*function handler(m) {
 const data = global.owner.filter(([id, isCreator]) => id && isCreator) 
@@ -227,7 +238,7 @@ reportError(e)
 } 
 break
     
-case isCommand9:
+case isCommand10:
 try {
 let format = sizeFormatter({
 std: 'JEDEC', // 'SI' (default) | 'IEC' | 'JEDEC'
@@ -285,7 +296,7 @@ reportError(e)
 }   
 break
     
-case isCommand10:
+case isCommand11:
 if (!text) return m.reply(lenguajeGB.smsReportGB1(usedPrefix, command))
 if (text.length < 8) return m.reply(lenguajeGB.smsReportGB2())
 if (text.length > 1000) return m.reply(lenguajeGB.smsReportGB3())
@@ -304,7 +315,7 @@ await m.reply(lenguajeGB.smsReportGB5())
 break
 }}
 
-handler.command = /^(estado|status|estate|state|stado|stats|botstat(us)?|cuenta(s)?oficiales?|sharkig|(cuentas|account)s?s?k|(ig)?shark|(cuentasshark))|shark(bot)?groups?|grupos|groupssk|grupos(ofc|desharkbot|sk)|gruposk|sharkgroups?|group(ofc|sofc)|instalar(shark)?bot|proceso(del)?bot|bot(install|proceso)|installbot|owner|creator|propietario|dueño|dueña|propietaria|dueño|creadora|creador|group(s|list|o(lista)?)|list(a)?(de)?grupo(s)?|grupolista|info(shark|bot)|informaci(ón|on)(shark|bot)|contactos?|contacts?|ping|speed|velocidad|rapidez|velocity|dona(te|si)|report|request|reporte|bugs|bug|reportowner|reportes|reportar$/i
+handler.command = /^(estado|status|estate|state|stado|stats|botstat(us)?|cuenta(s)?oficiales?|sharkig|(cuentas|account)s?s?k|(ig)?shark|(cuentasshark))|shark(bot)?groups?|grupos|groupssk|grupos(ofc|desharkbot|sk)|gruposk|sharkgroups?|group(ofc|sofc)|c(ó|o)digo|sc|git|script|instalar(shark)?bot|proceso(del)?bot|bot(install|proceso)|installbot|owner|creator|propietario|dueño|dueña|propietaria|dueño|creadora|creador|group(s|list|o(lista)?)|list(a)?(de)?grupo(s)?|grupolista|info(shark|bot)|informaci(ón|on)(shark|bot)|contactos?|contacts?|ping|speed|velocidad|rapidez|velocity|report|request|reporte|bugs|bug|reportowner|reportes|reportar$/i
 export default handler
 
 function clockString(ms) {

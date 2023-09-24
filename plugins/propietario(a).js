@@ -1,6 +1,9 @@
 import fs from 'fs' 
 import { execSync } from 'child_process'
+import { spawn } from 'child_process'
+import chalk from "chalk" 
 let linkRegex = /chat.whatsapp.com\/([0-9A-Za-z]{20,24})/i
+
 let handler = async (m, { conn, command, usedPrefix, text, isAdmin, isOwner, isROwner, participants, groupMetadata  }) => {
 let fkontak, who, user, number, bot, bant, ownerNumber, aa, users, usr, q, mime, img
 fkontak = { "key": { "participants":"0@s.whatsapp.net", "remoteJid": "status@broadcast", "fromMe": false, "id": "Halo" }, "message": { "contactMessage": { "vcard": `BEGIN:VCARD\nVERSION:3.0\nN:Sy;Bot;;;\nFN:y\nitem1.TEL;waid=${conn.user.jid.split('@')[0]}:${conn.user.jid.split('@')[0]}\nitem1.X-ABLabel:Ponsel\nEND:VCARD` }}, "participant": "0@s.whatsapp.net" }
@@ -19,6 +22,7 @@ const isCommand12 = /^(bcbot|bcsubbot|bcsubot)$/i.test(command)
 const isCommand13 = /^((broadcast|bc)(group|grup|gc))$/i.test(command)
 const isCommand14 = /^(broadcastchats?|bcc(hats?)?)$/i.test(command)
 const isCommand15 = /^(broadcastall|bc)$/i.test(command)
+const isCommand16 = /^(reiniciar|restart)$/i.test(command)
 
 async function reportError(e) {
 await m.reply(lenguajeGB['smsMalError3']() + '\n*' + lenguajeGB.smsMensError1() + '*\n*' + usedPrefix + `${lenguajeGB.lenguaje() == 'es' ? 'reporte' : 'report'}` + '* ' + `${lenguajeGB.smsMensError2()} ` + usedPrefix + command)
@@ -238,7 +242,7 @@ for (let id of users) {
 await delay(1500)
 await conn.copyNForward(id, content, true)
 }
-let difuUser = `${users.map(v => '🌺 wa.me/' + v.replace(/[^0-9]/g, '') + `?text=${encodeURIComponent(usedPrefix)}estado`).join('\n')}`
+let difuUser = `${users.map(v => '🫡 wa.me/' + v.replace(/[^0-9]/g, '') + `?text=${encodeURIComponent(usedPrefix)}estado`).join('\n')}`
 let tolUser = users.length * 1.5
 let numUser = users.length
 await conn.reply(m.chat, lenguajeGB.smsJBDifu2(numUser, difuUser, tolUser).trim(), m)        
@@ -345,9 +349,17 @@ await m.reply(`${lenguajeGB.smsBCbot1()}
 \`\`\`${lenguajeGB.smsBCbot4()} >>   ${total2}\`\`\`\n\n*${lenguajeGB.smsBCbot5()} ${time2}*\n${totalPri2 >= 500000 ? `\n*${lenguajeGB.smsBCbot6()}*` : ''}`)        
 break
         
+case isCommand16:
+try{
+await m.reply(lenguajeGB.smsreiniciar()) 
+console.log(chalk.bold.magenta('❇️ REINICIAR... ❇️'))
+process.send('reset')
+} catch (e) {
+reportError(e)}  
+break
+        
 }}
-
-handler.command = /^(backup|respaldo|copia|ban(user|usuario|earuser|earusuario)|seradmin|autoadmin|tenerpoder|(set|cambiar|nueva|new)(bio|botbio|biobot)|(set|cambiar|nuev(a|o)?|new)(name|botname|namebot|nombre|nombrebot|botnombre)|(set|cambiar|nueva|new)(ppbot|botpp|fotobot|botfoto)|update|actualizar|ups|banchat|banearchat|block|unblock|bloquear|desbloquear|restablecerdatos|borrardatos|deletedatauser|join|nuevogrupo|newgrupo|unete|bcbot|bcsubbot|bcsubot|(broadcast|bc)(group|grup|gc)|broadcastchats?|bcc(hats?)?|broadcastall|bc)$/i
+handler.command = /^(backup|respaldo|copia|ban(user|usuario|earuser|earusuario)|seradmin|autoadmin|tenerpoder|(set|cambiar|nueva|new)(bio|botbio|biobot)|(set|cambiar|nuev(a|o)?|new)(name|botname|namebot|nombre|nombrebot|botnombre)|(set|cambiar|nueva|new)(ppbot|botpp|fotobot|botfoto)|update|actualizar|ups|banchat|banearchat|block|unblock|bloquear|desbloquear|restablecerdatos|borrardatos|deletedatauser|join|nuevogrupo|newgrupo|unete|bcbot|bcsubbot|bcsubot|(broadcast|bc)(group|grup|gc)|broadcastchats?|bcc(hats?)?|broadcastall|bc|reiniciar|restart)$/i
 handler.owner = true
 
 export default handler
