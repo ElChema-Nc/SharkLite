@@ -217,7 +217,7 @@ correo = official[1][0] == String(contact[0]) ? 'ja82783643@gmail.com' : mail ==
 lugar = official[1][0] == String(contact[0]) ? '🇳🇮 Nicaragua' : country === '' ? lenguajeGB.smsContacto6() : country
 enlace = official[1][0] == String(contact[0]) ? 'https://github.com/ElChema-Nc' : md    
 lista.push([number, ofc, nombre, description, official[1][0] == String(contact[0]) ? null : correo, lugar, enlace, bio, official[0][0] == String(contact[0]) ? 'https://youtube.com/@thechema4896' : null]) }  
-lista.push([conn.user.jid.split('@')[0], await conn.getName(conn.user.jid), packname, lenguajeGB.smsContacto8(), mail === '' ? 'ja82783643@gmail.com' : mail, lenguajeGB.smsContacto7(), md, bioBot, yt, ig, nna])
+lista.push([conn.user.jid.split('@')[0], await conn.getName(conn.user.jid), packname, lenguajeGB.smsContacto7(), mail === '' ? 'ja82783643@gmail.com' : mail, lenguajeGB.smsContacto8(), md, bioBot, yt, ig, nna])
 await conn.sendContactArray(m.chat, lista, null, { quoted: fkontak })
 /*function handler(m) {
 const data = global.owner.filter(([id, isCreator]) => id && isCreator) 
