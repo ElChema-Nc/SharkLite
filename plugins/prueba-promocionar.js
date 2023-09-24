@@ -15,7 +15,7 @@ chat.welcome = false
   
 let linkRegex = /chat.whatsapp.com\/([0-9A-Za-z]{20,24})( [0-9]{1,3})?/i 
 if (!text) return m.reply(`
-_⚠️😿 Ingresa enlaces de los grupos y el mensaje a promocionar_
+_⚠️🥲 Ingresa enlaces de los grupos y el mensaje a promocionar_
 
 *Opciones:*
 
@@ -36,10 +36,10 @@ _⚠️😿 Ingresa enlaces de los grupos y el mensaje a promocionar_
 - Sí ha respondido a una imagen y el mensaje contine una url de imagen, se tomará como prioridad la url para que forme parte del mensaje de promoción.`)
   
 const enlaces = text.match(linkRegex)
-if (!enlaces || enlaces.length === 0) return m.reply('_⚠️😿 No se encontraron enlaces de grupos válidos en el mensaje_')
+if (!enlaces || enlaces.length === 0) return m.reply('_⚠️🥲 No se encontraron enlaces de grupos válidos en el mensaje_')
   
 let message = text.replace(linkRegex, '').trim();
-if (message.length < 10) return m.reply('_⚠️😿 El mensaje de promoción debe contener al menos 10 letras_')
+if (message.length < 10) return m.reply('_⚠️🥲 El mensaje de promoción debe contener al menos 10 letras_')
 
 let url, media
 let q = m.quoted ? m.quoted : m
