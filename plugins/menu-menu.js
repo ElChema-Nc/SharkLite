@@ -188,9 +188,9 @@ let menu = `*◈ ${user.registered === true ? user.name : `😐 ${usedPrefix}${l
 *│* ╰∙∙∙∙∙∙∙∙∙∙∙∙∙∙∙∙∙ ∙ ∙ ∙ ∙
  `.trim()
     
-const vi = ['https://s17.aconvert.com/convert/p3r68-cdx67/1m2wv-jozjm.mp4',
+const vi = ['https://s19.aconvert.com/convert/p3r68-cdx67/5hc2c-wswhj.mp4',
 'https://s19.aconvert.com/convert/p3r68-cdx67/tleqr-jgzog.mp4',
-'https://s19.aconvert.com/convert/p3r68-cdx67/vbh86-l52z1.mp4']
+'https://s5.aconvert.com/convert/p3r68-cdx67/vrdex-rwu36.mp4']
 
 try {
 await conn.sendMessage(m.chat, { video: { url: vi.getRandom() }, gifPlayback: true, caption: menu, mentions: [m.sender, global.conn.user.jid] }, { quoted: fkontak }) 
