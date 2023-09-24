@@ -7,7 +7,7 @@ const translatedText = await translate(text, { to: 'en' })
 const lowercaseTranslatedText = translatedText.text.toLowerCase()
 
 if (prohibited.some(word => lowercaseTranslatedText.includes(word))) {
-return m.reply('⚠️')
+return m.reply('⚠️😾')
 } else {
 return null
 }}

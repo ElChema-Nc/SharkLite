@@ -84,6 +84,7 @@ reportError(e)
 } 
 break
 
+//FUNCIÓN HECHA POR https://github.com/Azami19
 case isCommand4:
 let [, code] = text.match(/chat\.whatsapp\.com\/(?:invite\/)?([0-9A-Za-z]{20,24})/i) || []
 if (!code) return m.reply(lenguajeGB.smsMalused() + usedPrefix + command + ' ' + nna)
@@ -106,19 +107,19 @@ let res = await conn.query({ tag: 'iq', attrs: { type: 'get', xmlns: 'w:g2', to:
 data = extractGroupMetadata(res),
 txt = Object.keys(data).map(v => `*${v.capitalize()}:* ${data[v]}`).join('\n')
 let groupinfo = `
-🌺 ${lenguajeGB.smsInsGC1()}
+😃 ${lenguajeGB.smsInsGC1()}
 → ${data.id === undefined ? '❌' : data.id}
 
-🌸 ${lenguajeGB.smsInsGC2()}
+🫡 ${lenguajeGB.smsInsGC2()}
 → ${data.subject === undefined ? '❌' : data.subject}
 
-🌼 ${lenguajeGB.smsInsGC3()}
+😵 ${lenguajeGB.smsInsGC3()}
 → ${data.creation === undefined ? '❌' : data.creation}
 
-🌻 ${lenguajeGB.smsInsGC4()}
+🤧 ${lenguajeGB.smsInsGC4()}
 → ${data.owner === undefined ? '❌' : data.owner}
 
-🌹 ${lenguajeGB.smsInsGC5()}
+🤥 ${lenguajeGB.smsInsGC5()}
 → ${data.desc === undefined ? '❌' : data.desc}
 `.trim()
 await conn.sendFile(m.chat, sharkImg.getRandom(), 'error.jpg', groupinfo, m)
