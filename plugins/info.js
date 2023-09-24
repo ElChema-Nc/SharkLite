@@ -92,15 +92,6 @@ reportError(e)
 break
     
 case isCommand4:
-try{ 
-_package = JSON.parse(await promises.readFile(join(__dirname, '../package.json')).catch(_ => ({}))) || {}
-await conn.sendFile(m.chat, sharkImg.getRandom(), 'shark.jpg', `*_${_package.homepage}_*\n\n` + lenguajeGB.smsPrivadoDonar(), fkontak)    
-} catch (e) {
-reportError(e)
-}    
-break
-    
-case isCommand5:
 let codigo = `termux-setup-storage
 apt update
 apt upgrade
@@ -141,7 +132,7 @@ reportError(e)
 }    
 break
     
-case isCommand6:
+case isCommand5:
 try{   
 taguser = conn.getName(m.sender)
 _package = JSON.parse(await promises.readFile(join(__dirname, '../package.json')).catch(_ => ({}))) || {}
@@ -154,7 +145,7 @@ reportError(e)
 }    
 break
     
-case isCommand7:
+case isCommand6:
 try{
 let txt
 groups = Object.values(await conn.groupFetchAllParticipating())
@@ -173,7 +164,7 @@ reportError(e)
 }     
 break
     
-case isCommand8:
+case isCommand7:
 try{
 _uptime = process.uptime() * 1000
 uptime = clockString(_uptime) 
@@ -208,7 +199,7 @@ reportError(e)
 }     
 break
 
-case isCommand9:
+case isCommand8:
 try{
 let contact, number, ofc, nombre, description, correo, lugar, enlace, biog
 let biografiaBot = await conn.fetchStatus(conn.user.jid.split('@')[0] + '@s.whatsapp.net').catch(_ => 'undefined')
@@ -238,7 +229,7 @@ reportError(e)
 } 
 break
     
-case isCommand10:
+case isCommand9:
 try {
 let format = sizeFormatter({
 std: 'JEDEC', // 'SI' (default) | 'IEC' | 'JEDEC'
@@ -296,7 +287,7 @@ reportError(e)
 }   
 break
     
-case isCommand11:
+case isCommand10:
 if (!text) return m.reply(lenguajeGB.smsReportGB1(usedPrefix, command))
 if (text.length < 8) return m.reply(lenguajeGB.smsReportGB2())
 if (text.length > 1000) return m.reply(lenguajeGB.smsReportGB3())
