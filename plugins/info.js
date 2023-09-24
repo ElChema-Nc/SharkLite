@@ -212,11 +212,11 @@ ofc = await conn.getName(number + '@s.whatsapp.net') //String(contact[1])
 let biografia = await conn.fetchStatus(number +'@s.whatsapp.net').catch(_ => 'undefined')
 let bio = biografia.status?.toString() || `${desc2 == '' ? lenguajeGB.smsContacto2() : desc2}`
 nombre = official[0][0] == String(contact[0]) ? official[0][1] : lenguajeGB.smsContacto3() 
-description = official[0][0] == String(contact[0]) ? 'Solo temas del SharkLite' : official[1][0] == String(contact[0]) ? lenguajeGB.smsContacto4() : desc === '' ? lenguajeGB.smsContacto5() : desc
+description = official[0][0] == String(contact[0]) ? 'Solo temas del SharkLite' : official[0][0] == String(contact[0]) ? lenguajeGB.smsContacto4() : desc === '' ? lenguajeGB.smsContacto5() : desc
 correo = official[0][0] == String(contact[0]) ? 'ja82783643@gmail.com' : mail === '' ? lenguajeGB.smsContacto6() : mail
 lugar = official[0][0] == String(contact[0]) ? '🇳🇮 Nicaragua' : country === '' ? lenguajeGB.smsContacto7() : country
 enlace = official[0][0] == String(contact[0]) ? 'https://github.com/ElChema-Nc' : md    
-lista.push([number, ofc, nombre, description, official[3][0] == String(contact[0]) ? null : correo, lugar, enlace, bio, official[1][0] == String(contact[0]) ? 'https://youtube.com/@thechema4896' : null]) } 
+lista.push([number, ofc, nombre, description, official[0][0] == String(contact[0]) ? null : correo, lugar, enlace, bio, official[0][0] == String(contact[0]) ? 'https://youtube.com/@thechema4896' : null]) } 
 lista.push([conn.user.jid.split('@')[0], await conn.getName(conn.user.jid), packname, lenguajeGB.smsContacto8(), mail === '' ? 'ja82783643@gmail.com' : mail, lenguajeGB.smsContacto7(), md, bioBot, yt, ig, nna])
 await conn.sendContactArray(m.chat, lista, null, { quoted: fkontak })
 /*function handler(m) {
