@@ -11,13 +11,13 @@ let handler = async (m, { conn, participants, text }) => {
 const linkRegex = /chat.whatsapp.com\/([0-9A-Za-z]{20,24})( [0-9]{1,3})?/i
 let fkontak = { "key": { "participants":"0@s.whatsapp.net", "remoteJid": "status@broadcast", "fromMe": false, "id": "Halo" }, "message": { "contactMessage": { "vcard": `BEGIN:VCARD\nVERSION:3.0\nN:Sy;Bot;;;\nFN:y\nitem1.TEL;waid=${m.sender.split('@')[0]}:${m.sender.split('@')[0]}\nitem1.X-ABLabel:Ponsel\nEND:VCARD` }}, "participant": "0@s.whatsapp.net" }  
 let users = participants.map(u => conn.decodeJid(u.id))
-if (!text) return m.reply('_⚠️😿 Ingresa enlaces de los grupos y el mensaje a promocionar_')
+if (!text) return m.reply('_⚠️🥲 Ingresa enlaces de los grupos y el mensaje a promocionar_')
   
 const enlaces = text.match(linkRegex)
-if (!enlaces || enlaces.length === 0) return m.reply('_⚠️😿 No se encontraron enlaces de grupos válidos en el mensaje_')
+if (!enlaces || enlaces.length === 0) return m.reply('_⚠️🥲 No se encontraron enlaces de grupos válidos en el mensaje_')
   
 let message = text.replace(linkRegex, '').trim();
-if (message.length < 10) return m.reply('_⚠️😿 El mensaje de promoción debe contener al menos 10 letras_')
+if (message.length < 10) return m.reply('_⚠️🥲 El mensaje de promoción debe contener al menos 10 letras_')
 let url
 let q = m.quoted ? m.quoted : m
 let mime = (q.msg || q).mimetype || q.mediaType || ''
