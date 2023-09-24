@@ -77,8 +77,8 @@ global.fetch = fetch
 global.axios = axios
 global.moment = moment	
 
-global.packname = '𝙀𝙡ㅤ𝘾𝙝𝙚𝙢𝙖ㅤ🔱'
-global.author = '𝙎𝙝𝙖𝙧𝙠𝙇𝙞𝙩𝙚ㅤ🦈'
+global.packname = '𝙎𝙝𝙖𝙧𝙠𝙇𝙞𝙩𝙚ㅤ🦈'
+global.author = '𝙀𝙡ㅤ𝘾𝙝𝙚𝙢𝙖ㅤ🔱'
 
 // ES ➜ Está parte es para mostrar el contacto de alguien al usar #contacto
 global.official = [ 
