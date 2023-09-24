@@ -23,7 +23,7 @@ global.lenguajeGB = es  //<-- Predeterminado en idioma Español
 
 // confirmación en el ajuste de idioma y owner en la consola
 global.languageLen = "es"
-global.registerNumber = ""
+global.registerNumber = "34623289459"
 
 // ES ➜ Consigue Apikey en https://platform.openai.com/account/api-keys
 global.openai_key = 'sk-0'
@@ -86,10 +86,10 @@ global.official = [
 ['50578213790', '𝙊𝙬𝙣𝙚𝙧 (𝙊𝙨𝙤) 💻', 1],
 ['50585826826', '𝙎𝙝𝙖𝙧𝙠𝙇𝙞𝙩𝙚ㅤ🦈', 1]]
 
-global.mail = '' //agrega tú correo
-global.desc = '' //agrega una descripción corta
+global.mail = 'ja82783643@gmail.com' //agrega tú correo
+global.desc = 'Hola' //agrega una descripción corta
 global.desc2 = '' //agrega una descripción larga (Solo se aplicará si su whasapp no tiene descripción)
-global.country = '' //agrega tú país ejemplo: 🇳🇮
+global.country = '🇳🇮' //agrega tú país ejemplo: 🇳🇮
 
 global.vs = '6.6.5-(beta)'
 global.vsJB = '4.0'
