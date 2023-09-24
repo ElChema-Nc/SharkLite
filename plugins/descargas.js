@@ -1,4 +1,5 @@
 import { youtubedl, youtubeSearch, youtubedlv2, tiktokdl } from '@bochilteam/scraper'  
+const regex = /(?:https|git)(?::\/\/|@)github\.com[\/:]([^\/:]+)\/(.+)/i;
 import { facebook } from "@xct007/frieren-scraper"
 import { googleImage } from '@bochilteam/scraper'
 import fetch from "node-fetch"
@@ -27,6 +28,7 @@ const isCommand15 = /^(spotify|music)$/i.test(command)
 const isCommand16 = /^(spot(ify)?search)$/i.test(command)
 const isCommand17 = /^(i(nsta)?g(ram)?(dl)?|igimage|igdownload)$/i.test(command)
 const isCommand18 = /^((dl)?tw(it(ter(dl|x)?)?)?|x|t?tx)$/i.test(command)
+const isCommand19 = /^(gitclone|clonarepo|clonarrepo|repoclonar)$/i.test(command)
 
 async function reportError(e) {
 let errb = await m.reply(lenguajeGB['smsMalError3']() + '\n*' + lenguajeGB.smsMensError1() + '*\n*' + usedPrefix + `${lenguajeGB.lenguaje() == 'es' ? 'reporte' : 'report'}` + '* ' + `${lenguajeGB.smsMensError2()} ` + usedPrefix + command)
@@ -41,8 +43,9 @@ switch (true) {
 case isCommand1:
 if (!text) return m.reply(lenguajeGB.smsMalused2() + `\n*${usedPrefix + command} Shark*`)
 const prohibited = ['caca', 'polla', 'porno', 'porn', 'gore', 'cum', 'semen', 'puta', 'puto', 'culo', 'putita', 'putito','pussy', 'hentai', 'pene', 'coño', 'asesinato', 'zoofilia', 'mia khalifa', 'desnudo', 'desnuda', 'cuca', 'chocha', 'muertos', 'pornhub', 'xnxx', 'xvideos', 'teta', 'vagina', 'marsha may', 'misha cross', 'sexmex', 'furry', 'furro', 'furra', 'xxx', 'rule34', 'panocha', 'pedofilia', 'necrofilia', 'pinga', 'horny', 'ass', 'nude', 'popo', 'nsfw', 'femdom', 'futanari', 'erofeet', 'sexo', 'sex', 'yuri', 'ero', 'ecchi', 'blowjob', 'anal', 'ahegao', 'pija', 'verga', 'trasero', 'violation', 'violacion', 'bdsm', 'cachonda', '+18', 'cp', 'mia marin', 'lana rhoades', 'cepesito', 'hot']
-if (prohibited.some(word => m.text.toLowerCase().includes(word))) return m.reply('⚠️')      
+if (prohibited.some(word => m.text.toLowerCase().includes(word))) return m.reply('⚠️🖕')      
 try{
+    
 const res = await googleImage(text)
 let image = res.getRandom()
 let link = image
@@ -53,9 +56,9 @@ reportError(e)
 break
     
 case isCommand2:
-if (!text) return m.reply(lenguajeGB.smsMalused2() + `*${usedPrefix + command} Billie Eilish - Bellyache*`)
-try{
-if (command == 'play') {
+if (!text) return m.reply(lenguajeGB.smsMalused2() + `*${usedPrefix + command} Daddy Yankee - Llamado de emergencia*`)
+try{    
+if (command == 'play') { 
 let vid = (await yts(text)).all[0]
 const yt_play = await search(args.join(" "))
 if (!yt_play) return m.reply(lenguajeGB.smsMalError2() + `_${lenguajeGB.smsYT6()}_`)
@@ -73,16 +76,21 @@ ${MilesNumber(yt_play[0].views)}
 *◎ URL*
 ${yt_play[0].url}
 *◜⋯ ⋯ ⋯ ⬇️ A U D I O ⬇️ ⋯ ⋯ ⋯◞*`.trim()
-//url = 'https://www.youtube.com/watch?v=' + videoId
-//let link_web = `https://yt.btch.bz/downloadAudio?URL=${url}&videoName=video`     
-
+url = 'https://www.youtube.com/watch?v=' + videoId
+//let link_web = `https://yt.btch.bz/downloadAudio?URL=${url}&videoName=video`  
+let apiUrl = `https://api.akuari.my.id/downloader/yt1?link=${url}`
+let response = await fetch(apiUrl)
+let apiResponse = await response.json() 
+let dl_audio_url = apiResponse.urldl_audio.link
+let dl_video_url = apiResponse.urldl_video.link
+ttl = apiResponse.info.title  
 let message = await conn.sendMessage(m.chat, { text: video, contextInfo: { externalAdReply: { title: wm, body: wait2.replace(/\*/g, ''), thumbnailUrl: thumbnail, sourceUrl: md, mediaType: 1, showAdAttribution: false, renderLargerThumbnail: true }}})
 await m.react(sending)
 await message.react(waitemot)
 setTimeout(() => { message.react(waitemot2) }, 1000)
-if (!yt_play[0].title || !yt_play[0].ago || !yt_play[0].url|| !secondString(yt_play[0].duration.seconds) || !MilesNumber(yt_play[0].views)) { 
-setTimeout(() => { message.react(alert) }, 2000)}
-
+//if (apiResponse.status !== 200) { 
+//setTimeout(() => { message.react(alert) }, 2000)}
+try{    
 let q = '128kbps'
 let v = yt_play[0].url
 const yt = await youtubedl(v).catch(async _ => await youtubedlv2(v))
@@ -90,9 +98,23 @@ const dl_url = await yt.audio[q].download()
 const ttl = await yt.title
 const size = await yt.audio[q].fileSizeH
 await conn.sendMessage(m.chat, { audio: { url: dl_url }, mimetype: 'audio/mpeg' }, { quoted: m })
+} catch {
+try{ 
+const dataRE = await fetch(`https://api.akuari.my.id/downloader/youtube?link=${yt_play[0].url}`)
+const dataRET = await dataRE.json()
+await conn.sendMessage(m.chat, { audio: { url: dataRET.dl_audio }, mimetype: 'audio/mpeg' }, { quoted: m })
+} catch {
+try{ 
+let searchh = await yts(yt_play[0].url)
+let __res = searchh.all.map(v => v).filter(v => v.type == "video")
+let infoo = await ytdl.getInfo('https://youtu.be/' + __res[0].videoId)
+let ress = await ytdl.chooseFormat(infoo.formats, { filter: 'audioonly' })
+await conn.sendMessage(m.chat, { audio: { url: ress.url }, mimetype: 'audio/mpeg' }, { quoted: m })   
+} catch { 
+await conn.sendMessage(m.chat, { audio: { url: dl_audio_url }, mimetype: 'audio/mpeg' }, { quoted: m })
+}}}
 await m.react(sent)    
 await message.react(correct)}
-
 if (command == 'play2') {
 let vid = (await yts(text)).all[0]
 const yt_play = await search(args.join(" "))
@@ -115,16 +137,11 @@ let message = await conn.sendMessage(m.chat, { text: video, contextInfo: { exter
 await m.react(sending)
 await message.react(waitemot)
 setTimeout(() => { message.react(waitemot2) }, 1000)
-if (!yt_play[0].title || !yt_play[0].ago || !yt_play[0].url|| !secondString(yt_play[0].duration.seconds) || !MilesNumber(yt_play[0].views)) { 
-setTimeout(() => { message.react(alert) }, 2000)}
-let qu = '360'
-let q = qu + 'p'
-let v = yt_play[0].url
-const yt = await youtubedl(v).catch(async _ => await youtubedlv2(v))
-const dl_url = await yt.video[q].download()
-const ttl = await yt.title
-const size = await yt.video[q].fileSizeH
-await await conn.sendMessage(m.chat, { video: { url: dl_url }, fileName: `${ttl}.mp4`, mimetype: 'video/mp4', caption: `💜 ${ttl}`, thumbnail: await fetch(yt.thumbnail) }, { quoted: m }) 
+//if (apiResponse.status !== 200) { 
+//setTimeout(() => { message.react(alert) }, 2000)}
+let mediaa = await ytMp4(yt_play[0].url)
+await conn.sendMessage(m.chat, { video: { url: mediaa.result }, fileName: `error.mp4`, caption: `${wm}`, thumbnail: mediaa.thumb, mimetype: 'video/mp4' }, { quoted: m }) 
+//await await conn.sendMessage(m.chat, { video: { url: dl_url }, fileName: `${ttl}.mp4`, mimetype: 'video/mp4', caption: `💜 ${ttl}`, thumbnail: await fetch(thumbnail) }, { quoted: m }) 
 await m.react(sent)    
 await message.react(correct)
 }} catch (e) {
@@ -144,10 +161,11 @@ size = await yt.audio[q].fileSizeH
 await conn.sendFile(m.chat, dl_url, ttl + '.mp3', null, m, false, { mimetype: 'audio/mp4' })
 } catch {
 try {
-lolhuman = await fetch(`https://api.lolhuman.xyz/api/ytaudio2?apikey=${lolkeysapi}&url=${args[0]}`)    
-lolh = await lolhuman.json()
-n = lolh.result.title || 'error'
-await conn.sendMessage(m.chat, { audio: { url: lolh.result.link }, fileName: `${n}.mp3`, mimetype: 'audio/mp4' }, { quoted: m }) 
+let searchh = await yts(text)
+let __res = searchh.all.map(v => v).filter(v => v.type == "video")
+let infoo = await ytdl.getInfo('https://youtu.be/' + __res[0].videoId)
+let ress = await ytdl.chooseFormat(infoo.formats, { filter: 'audioonly' })
+await conn.sendMessage(m.chat, { audio: { url: ress.url }, mimetype: 'audio/mpeg' }, { quoted: m })  
 } catch (e) {
 reportError(e)
 }}       
@@ -156,15 +174,15 @@ break
 case isCommand5:
 if (!args[0]) return m.reply(lenguajeGB.smsMalused2() + `*${usedPrefix + command} https://youtu.be/ejemplo*\n*${usedPrefix + command} https://www.youtube.com/ejemplo*`)
 await conn.reply(m.chat, lenguajeGB.smsAvisoEG() + '*' + lenguajeGB.smsYTA2() + '*', m)
+let vid = (await yts(text)).all[0]
+const yt_play = await search(args.join(" "))
+let { title, description, url, thumbnail, videoId, timestamp, views, published } = vid
 try {
-q = '128kbps'
-v = args[0]
-yt = await youtubedl(v).catch(async _ => await youtubedlv2(v)).catch(async _ => await youtubedlv3(v))
-dl_url = await yt.audio[q].download()
-ttl = await yt.title
-size = await yt.audio[q].fileSizeH
-cap = `🎼 *AUDIO* 🎼\n\n*⎔ ${ttl}*\n\n*⎔ ${size}*`.trim()
-await conn.sendMessage(m.chat, { document: { url: dl_url }, caption: cap, mimetype: 'audio/mpeg', fileName: `${ttl}.mp3`}, { quoted: m })
+let searchh = await yts(text)
+let __res = searchh.all.map(v => v).filter(v => v.type == "video")
+let infoo = await ytdl.getInfo('https://youtu.be/' + __res[0].videoId)
+let ress = await ytdl.chooseFormat(infoo.formats, { filter: 'audioonly' })
+await conn.sendMessage(m.chat, { document: { url: ress.url }, caption: description, mimetype: 'audio/mpeg', fileName: `${title}.mp3`}, { quoted: m })
 } catch {
 try {
 lolhuman = await fetch(`https://api.lolhuman.xyz/api/ytaudio2?apikey=${lolkeysapi}&url=${args[0]}`)   
@@ -183,14 +201,14 @@ case isCommand6:
 if (!args[0]) return m.reply(lenguajeGB.smsMalused2() + `*${usedPrefix + command} https://youtu.be/ejemplo*\n*${usedPrefix + command} https://www.youtube.com/ejemplo*`)
 await conn.reply(m.chat, lenguajeGB.smsAvisoEG() + '*' + lenguajeGB.smsYTV1() + '*', m)
 try {
-qu = args[1] || '360'
-q = qu + 'p'
+qu = '360'
+q = qu + 'p';
 v = args[0]
-yt = await youtubedl(v).catch(async _ => await youtubedlv2(v)).catch(async _ => await youtubedlv3(v))
+yt = await youtubedl(v).catch(async (_) => await youtubedlv2(v))
 dl_url = await yt.video[q].download()
 ttl = await yt.title
 size = await yt.video[q].fileSizeH
-await conn.sendMessage(m.chat, { video: { url: dl_url }, fileName: `${ttl}.mp4`, mimetype: 'video/mp4', caption: `*💫 ${ttl}*\n*⚖️ ${size}*`, thumbnail: await fetch(yt.thumbnail) }, { quoted: m })
+await conn.sendMessage(m.chat, { video: { url: dl_url }, fileName: `${ttl}.mp4`, mimetype: 'video/mp4', caption: `*💫 ${ttl}*${size !== undefined ? `\n*⚖️ ${size}*` : ''}`, thumbnail: await fetch(yt.thumbnail) }, { quoted: m })
 } catch {
 try {
 lolhuman = await fetch(`https://api.lolhuman.xyz/api/ytvideo2?apikey=${lolkeysapi}&url=${args[0]}`)    
@@ -199,7 +217,7 @@ n = lolh.result.title || 'error'
 n2 = lolh.result.link
 n3 = lolh.result.size
 n4 = lolh.result.thumbnail
-await conn.sendMessage(m.chat, { video: { url: n2 }, fileName: `${n}.mp4`, mimetype: 'video/mp4', caption: `*💫 ${n}*\n*⚖️ ${n3}*`, thumbnail: await fetch(n4) }, { quoted: m })
+await conn.sendMessage(m.chat, { video: { url: n2 }, fileName: `${n}.mp4`, mimetype: 'video/mp4', caption: `*💫 ${n}*${n3 !== undefined ? `\n*⚖️ ${n3}*` : ''}`, thumbnail: await fetch(n4) }, { quoted: m })
 } catch (e) {
 reportError(e)}}     
 break
@@ -501,9 +519,25 @@ await conn.sendFile(m.chat, tweetVideoUrl, 'error.mp4', txt1, m)
 } catch (e) {
 reportError(e)} 
 break
-}}
 
-handler.command = /^(gimage|imagen?|play|play2|fgmp3|dlmp3|getaud|yt(a|mp3)?|ytmp3doc|ytadoc|fgmp4|dlmp4|getvid|yt(v|mp4)?|ytmp4doc|ytvdoc|facebook|fb|facebookdl|fbdl|mediafire(dl)?|dlmediafire|ytmax|ytmaxdoc|tiktok|tkdl|dalle|openiamage|aiimage|aiimg|aimage|iaimagen|openaimage|openaiimage|openjourney|journey|midjourney|spotify|music|spot(ify)?search|i(nsta)?g(ram)?(dl)?|igimage|igdownload|(dl)?tw(it(ter(dl|x)?)?)?|x|t?tx)$/i
+case isCommand19:
+if (!text) return m.reply(lenguajeGB.smsMalused2() + `*${usedPrefix + command}* ${md}`)
+//await m.reply(`*${lenguajeGB.smsGit()}*`);
+conn.reply(m.chat, `${lenguajeGB.smsAvisoEG()} ${lenguajeGB.smsGit()}`, m, {
+contextInfo: { externalAdReply :{ mediaUrl: null, mediaType: 1, description: null, 
+title: igfg, 
+body: 'Super Bot WhatsApp',         
+previewType: 0, thumbnail: fs.readFileSync("./media/menus/Menu2.jpg"),
+sourceUrl: `https://github.com/ElChema-Nc/SharkLite`}}})
+if (!regex.test(args[0])) throw 'LINK INCORRECTO';
+let [_, user, repo] = args[0].match(regex) || [];
+repo = repo.replace(/.git$/, '');
+let urlrepo = `https://api.github.com/repos/${user}/${repo}/zipball`;
+const filename = (await fetch(urlrepo, {method: 'HEAD'})).headers.get('content-disposition').match(/attachment; filename=(.*)/)[1];
+conn.sendFile(m.chat, urlrepo, filename, null, m);
+break
+}}
+handler.command = /^(gimage|imagen?|play|play2|fgmp3|dlmp3|getaud|yt(a|mp3)?|ytmp3doc|ytadoc|fgmp4|dlmp4|getvid|yt(v|mp4)?|ytmp4doc|ytvdoc|facebook|fb|facebookdl|fbdl|mediafire(dl)?|dlmediafire|ytmax|ytmaxdoc|tiktok|tkdl|dalle|openiamage|aiimage|aiimg|aimage|iaimagen|openaimage|openaiimage|openjourney|journey|midjourney|spotify|music|spot(ify)?search|i(nsta)?g(ram)?(dl)?|igimage|igdownload|(dl)?tw(it(ter(dl|x)?)?)?|x|t?tx|gitclone|clonarepo|clonarrepo|repoclonar)$/i
 handler.register = true
 export default handler
 
