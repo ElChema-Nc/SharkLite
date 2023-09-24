@@ -41,10 +41,10 @@ npm install
 npm start
 ```
 
-### 👺 TERMUX 24/7 👺
+### 🍁 TERMUX 24/7 🍁 
 > Comandos para realizar una ejecución 24/7
 - INICIAR
-> Use estos comandos dentro de la carpeta del SharkLite
+> Use estos comandos dentro de la carpeta SharkLite
 ```bash
 termux-wake-lock && npm i -g pm2 && pm2 start index.js && pm2 save && pm2 logs 
 ```
@@ -56,12 +56,12 @@ pm2 stop all && pm2 unstartup
 - REANUDAR 
 > Reanudar los procesos, usar dentro de la carpeta SharkLite
 ```bash
-pm2 start index.js 
+pm2 start index.js
 ```
 - VISUALIZAR EL PROCESO
 > Usar dentro de la carpeta SharkLite para ver en tiempo real
 ```bash
-pm2 logs 
+pm2 logs
 ```
 - ELIMINAR PROCESOS PM2
 > Eliminar todos los procesos del bot. Para volver a usar PM2 debe volver a usar los comandos de INICIAR
@@ -70,13 +70,13 @@ pm2 delete all
 ```
 > **Note** Demanda consumo de RAM y CPU, el resultado mejora mientras las especificaciones del dispositivo sean moderadas
 
-### INSTALACIÓN EN REPLIT 🌹
-<a target="_blank" href="https://replit.com/github/ElChema-Nc/SharkLite"><img alt="Run on Replit" src="https://binbashbanana.github.io/deploy-buttons/buttons/remade/replit.svg"></a>
+### 🥴 INSTALACIÓN EN REPLIT
+<a target="_blank" href="https://replit.com/github/ElChema-Nc/SharkLite"><img alt="Ejecutarse en Replit" src="https://binbashbanana.github.io/deploy-buttons/buttons/remade/replit.svg"></a>
 > **Note** Agregue estos comandos en Shell para empezar la instalación automática por Replit:
 ```bash
 npm install -g ffmpeg imagemagick git yarn && npm i && node --no-warnings index.js
 ```
-##  INSTALACIÓN PARA WINDOWS/VPS/RDP 😵‍💫
+## 😵‍💫 INSTALACIÓN PARA WINDOWS/VPS/RDP
 
 * Descargar e instala Git [`Aquí`](https://git-scm.com/downloads)
 * Descargar e instala NodeJS [`Aquí`](https://nodejs.org/en/download)
@@ -115,5 +115,11 @@ Set-ExecutionPolicy RemoteSigned
 ```
 > Aparecerá un mensaje de advertencia preguntando si deseas cambiar la Política de ejecución. Confirma con "Y" y presiona Enter. Luego ya puede volver a ejecutar el comando `yarn`
 
-### 👑 CREADOR
-[![ElChema-Nc](https://github.com/ElChema-Nc.png?size=300)](https://github.com/ElChema-Nc)
+----
+### 😵‍💫 CREADOR
+[![ElChema-Nc](https://github.com/ElChema-Nc.png?size=100)](https://github.com/ElChema-Nc) 
+
+### 😐 DESARROLLADORES
+<a href="https://github.com/ElChema-Nc/SharkLite/graphs/contributors">
+<img src="https://contrib.rocks/image?repo=ElChema-Nc/SharkLite" /> 
+</a>
