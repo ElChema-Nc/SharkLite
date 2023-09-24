@@ -83,7 +83,7 @@ break
 try{
 let str = `
 ${lenguajeGB.smsGrupoOfc1()}
-_⭔ ${grupo[1]}_\n`.trim()
+_⭔ ${grupo[0]}_\n`.trim()
 await conn.sendFile(m.chat, sharkImg.getRandom(), 'shark.jpg', str, fkontak)   
 } catch (e) {
 reportError(e)
