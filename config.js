@@ -82,9 +82,7 @@ global.author = '𝙀𝙡ㅤ𝘾𝙝𝙚𝙢𝙖ㅤ🔱'
 
 // ES ➜ Está parte es para mostrar el contacto de alguien al usar #contacto
 global.official = [ 
-['34623289459', '𝙀𝙡ㅤ𝘾𝙝𝙚𝙢𝙖ㅤ🔱', 1], 
-['50578213790', '𝙊𝙬𝙣𝙚𝙧 (𝙊𝙨𝙤) 💻', 1],
-['50585826826', '𝙎𝙝𝙖𝙧𝙠𝙇𝙞𝙩𝙚ㅤ🦈', 1]]
+['34623289459', '𝙀𝙡ㅤ𝘾𝙝𝙚𝙢𝙖ㅤ🔱', 1]]
 
 global.mail = '' //agrega tú correo
 global.desc = '' //agrega una descripción corta
