@@ -15,8 +15,8 @@ global.owner = [
 ['34623289459', '𝙀𝙡ㅤ𝘾𝙝𝙚𝙢𝙖ㅤ🔱'],
 ['50578213790', '𝙊𝙬𝙣𝙚𝙧 (𝙊𝙨𝙤) 💻']
 
-global.mods = [] 
-global.prems = []
+global.mods = ['34623289459'] 
+global.prems = ['34623289459']
    
 //  es = Español 
 global.lenguajeGB = es  //<-- Predeterminado en idioma Español 
