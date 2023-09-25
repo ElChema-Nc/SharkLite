@@ -92,7 +92,7 @@ global.country = '🇳🇮' //agrega tú país ejemplo: 🇳🇮
 global.vs = '6.6.5-(beta)'
 global.vsJB = '4.0'
 
-global.sk = '𝙎𝙝𝙖𝙧𝙠𝙇𝙞𝙩𝙚ㅤ🦈'
+global.sk = '𝙎𝙝𝙖𝙧𝙠𝙇𝙞𝙩𝙚'
 global.yt = 'https://youtube.com/@thechema4896'
 global.yt2 = 'https://youtube.com/@thechema4896'
 global.ig = 'https://www.instagram.com/josh_artl'
@@ -102,7 +102,7 @@ global.nna = 'https://chat.whatsapp.com/JO5LstGfk6RBccr0gjzNwI' //UPDATE SHARKLI
 global.asistencia = 'Wa.me/34623289459' //Dudas? escríbeme...
 
 global.wm = '𝙎𝙝𝙖𝙧𝙠𝙇𝙞𝙩𝙚ㅤ🦈 : 𝙀𝙡ㅤ𝘾𝙝𝙚𝙢𝙖ㅤ🔱'
-global.igfg = '𝙎𝙝𝙖𝙧𝙠𝙇𝙞𝙩𝙚ㅤ🦈'
+global.igfg = '𝙎𝙝𝙖𝙧𝙠𝙇𝙞𝙩𝙚'
 global.wait = lenguajeGB['smsMeWait']()
 global.wait2 = lenguajeGB.smsWait()
 global.nomorown = owner[0][0]
