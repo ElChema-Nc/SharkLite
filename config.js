@@ -11,9 +11,9 @@ import { es } from './lib/idiomas/total-idiomas.js'
 // ES ➜ Agregué primero el número del Bot como prioridad
 // ES ➜ Si desea recibir reportes debe de usar los tres parámetros (Número, nombre y true)
 global.owner = [
-['34623289459', '𝙀𝙡ㅤ𝘾𝙝𝙚𝙢𝙖ㅤ🔱', true],  
-['50578213790', '𝙊𝙬𝙣𝙚𝙧 (𝙊𝙨𝙤) 💻'],
-['50585826826', '𝙎𝙝𝙖𝙧𝙠𝙇𝙞𝙩𝙚ㅤ🦈']]
+['50585826826', '𝙎𝙝𝙖𝙧𝙠-𝘽𝙤𝙩ㅤ🦈', true],  
+['34623289459', '𝙀𝙡ㅤ𝘾𝙝𝙚𝙢𝙖ㅤ🔱'],
+['50578213790', '𝙊𝙬𝙣𝙚𝙧 (𝙊𝙨𝙤) 💻']
 
 global.mods = [] 
 global.prems = []
